@@ -1,11 +1,32 @@
-import React from 'react'
+"use client";
+import { Inbox } from "lucide-react";
+import React from "react";
+import { useDropzone } from "react-dropzone";
 
-type Props = {}
-
-const FileUpload = (props: Props) => {
+const FileUpload = () => {
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "application/pdf": [".pdf"] },
+    maxFiles: 1,
+    onDrop: (acceptedFiles) => {
+      console.log(acceptedFiles);
+    },
+  });
   return (
-    <div>FileUpload</div>
-  )
-}
+    <div className="p-2 bg-white rounded-xl">
+      <div
+        {...getRootProps({
+          className:
+            "border-dashed border-2 rounded-xl cursor-pointer py-8 bg-gray-50 flex flex-col justify-center items-center",
+        })}
+      >
+        <input {...getInputProps()} />
+        <>
+          <Inbox className="w-10 h-10 text-blue-500" />
+          <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
+        </>
+      </div>
+    </div>
+  );
+};
 
-export default FileUpload
+export default FileUpload;
